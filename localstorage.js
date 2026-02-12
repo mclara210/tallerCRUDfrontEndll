@@ -1,5 +1,3 @@
-// ========== CAPTURA DE ELEMENTOS DEL DOM ==========
-// Elementos de autenticación
 const loginSection = document.getElementById('loginSection');
 const mainContent = document.getElementById('mainContent');
 const formLogin = document.getElementById('formLogin');
@@ -15,14 +13,14 @@ const btnLogin = document.getElementById('btnLogin');
 const btnLogout = document.getElementById('btnLogout');
 const btnAgregar = document.getElementById('btnAgregar');
 
-// Elementos de películas
+
 const inputBuscar = document.getElementById('inputBuscar');
 const selectGenero = document.getElementById('selectGenero');
 const gridPeliculas = document.getElementById('gridPeliculas');
 const carouselMovies = document.getElementById('carouselMovies');
 const sinResultados = document.getElementById('sinResultados');
 
-// Elementos del modal de película
+
 const modalPelicula = document.getElementById('modalPelicula');
 const modalTitulo = document.getElementById('modalTitulo');
 const formPelicula = document.getElementById('formPelicula');
@@ -35,7 +33,7 @@ const inputDescripcion = document.getElementById('inputDescripcion');
 const inputImagen = document.getElementById('inputImagen');
 const btnGuardarPelicula = document.getElementById('btnGuardarPelicula');
 
-// Elementos del modal de detalles
+
 const detallesTitulo = document.getElementById('detallesTitulo');
 const detallesImagen = document.getElementById('detallesImagen');
 const detallesGenero = document.getElementById('detallesGenero');
@@ -44,7 +42,7 @@ const detallesAno = document.getElementById('detallesAno');
 const detallesCalificacion = document.getElementById('detallesCalificacion');
 const detallesDescripcion = document.getElementById('detallesDescripcion');
 
-// ========== VARIABLES GLOBALES ==========
+
 let listaPeliculas = JSON.parse(localStorage.getItem('peliculas')) || [];
 let usuariosRegistrados = JSON.parse(localStorage.getItem('usuarios')) || [];
 let usuarioActual = JSON.parse(localStorage.getItem('usuarioActual')) || null;
@@ -52,7 +50,7 @@ let editIndex = null;
 let bootstrapModal = null;
 let bootstrapModalDetalles = null;
 
-// ========== DATOS INICIALES ==========
+
 function cargarPeliculasIniciales() {
     if (listaPeliculas.length === 0) {
         listaPeliculas = [
@@ -132,7 +130,7 @@ function cargarUsuariosIniciales() {
     }
 }
 
-// ========== FUNCIONES DE AUTENTICACIÓN ==========
+
 function iniciarSesion(e) {
     e.preventDefault();
     
@@ -234,7 +232,6 @@ function cerrarSesion() {
     btnAgregar.style.display = 'none';
 }
 
-// ========== FUNCIONES CRUD DE PELÍCULAS ==========
 function guardarPelicula() {
     const titulo = inputTitulo.value.trim();
     const genero = inputGenero.value;
@@ -328,7 +325,7 @@ function limpiarFormularioPelicula() {
     inputImagen.value = '';
 }
 
-// ========== FUNCIONES DE VISUALIZACIÓN ==========
+
 function mostrarPeliculas() {
     const busqueda = inputBuscar.value.trim().toLowerCase();
     const generoFiltro = selectGenero.value;
@@ -421,7 +418,7 @@ function mostrarSlider() {
     });
 }
 
-// ========== FUNCIÓN PARA EL SLIDER ==========
+
 window.scrollSlider = function(direction) {
     const scrollAmount = 300;
     if (direction === -1) {
@@ -431,7 +428,7 @@ window.scrollSlider = function(direction) {
     }
 };
 
-// ========== EVENT LISTENERS ==========
+
 formLogin.addEventListener('submit', iniciarSesion);
 formRegistro.addEventListener('submit', registrarUsuario);
 btnLogout.addEventListener('click', cerrarSesion);
@@ -439,7 +436,7 @@ btnGuardarPelicula.addEventListener('click', guardarPelicula);
 inputBuscar.addEventListener('input', mostrarPeliculas);
 selectGenero.addEventListener('change', mostrarPeliculas);
 
-// Event listener para limpiar el formulario cuando se abre el modal
+
 document.getElementById('modalPelicula').addEventListener('show.bs.modal', function() {
     if (editIndex === null) {
         limpiarFormularioPelicula();
@@ -447,20 +444,20 @@ document.getElementById('modalPelicula').addEventListener('show.bs.modal', funct
     }
 });
 
-// Event listener para limpiar el editIndex cuando se cierra el modal
+
 document.getElementById('modalPelicula').addEventListener('hidden.bs.modal', function() {
     editIndex = null;
     modalTitulo.textContent = 'Agregar Película';
     limpiarFormularioPelicula();
 });
 
-// Link para volver al login desde registro
+
 document.getElementById('linkLogin').addEventListener('click', function(e) {
     e.preventDefault();
     document.getElementById('login-tab').click();
 });
 
-// ========== EXPONER FUNCIONES GLOBALES ==========
+
 window.editarPelicula = editarPelicula;
 window.eliminarPelicula = eliminarPelicula;
 window.verDetalles = verDetalles;
@@ -471,11 +468,9 @@ document.addEventListener('DOMContentLoaded', function() {
     bootstrapModal = new bootstrap.Modal(document.getElementById('modalPelicula'));
     bootstrapModalDetalles = new bootstrap.Modal(document.getElementById('modalDetalles'));
     
-    // Cargar datos iniciales
     cargarPeliculasIniciales();
     cargarUsuariosIniciales();
     
-    // Verificar si hay sesión activa
     if (usuarioActual) {
         loginSection.style.display = 'none';
         mainContent.style.display = 'block';
